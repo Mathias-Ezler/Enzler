@@ -1,0 +1,76 @@
+<canvas id="bg" class="pointer-events-none fixed inset-0 z-0 size-full" aria-hidden="true"></canvas>
+
+<script>
+  const c = document.getElementById('bg') as HTMLCanvasElement;
+  const ctx = c.getContext('2d')!;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mouse = { x: -9999, y: -9999 };
+  const glow = { x: innerWidth * 0.7, y: innerHeight * 0.3 };
+  let W = 0, H = 0;
+  let pts: { x: number; y: number; vx: number; vy: number; r: number }[] = [];
+
+  function init() {
+    const d = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    c.width = W * d; c.height = H * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+    const n = Math.min(120, Math.floor((W * H) / 13000));
+    pts = Array.from({ length: n }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.4 + 0.7,
+    }));
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Resplandor suave que persigue al cursor
+    if (mouse.x > -999) {
+      glow.x += (mouse.x - glow.x) * 0.08;
+      glow.y += (mouse.y - glow.y) * 0.08;
+      const g = ctx.createRadialGradient(glow.x, glow.y, 0, glow.x, glow.y, 360);
+      g.addColorStop(0, 'rgba(124,108,255,.16)');
+      g.addColorStop(1, 'rgba(124,108,255,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    for (const p of pts) {
+      if (!still) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+        // Se apartan suavemente del cursor
+        const dx = p.x - mouse.x, dy = p.y - mouse.y, d = Math.hypot(dx, dy);
+        if (d < 130 && d > 0) { p.x += (dx / d) * 1.4; p.y += (dy / d) * 1.4; }
+      }
+    }
+
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i];
+      for (let j = i + 1; j < pts.length; j++) {
+        const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < 130) {
+          ctx.strokeStyle = `rgba(140,150,255,${0.16 * (1 - d / 130)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      // Líneas hacia el cursor
+      const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (dm < 190) {
+        ctx.strokeStyle = `rgba(76,201,240,${0.5 * (1 - dm / 190)})`;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(200,208,255,.65)';
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
+    }
+    if (!still) requestAnimationFrame(frame);
+  }
+
+  addEventListener('pointermove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
+  addEventListener('resize', () => { init(); if (still) frame(); });
+  init(); frame();
+</script>
