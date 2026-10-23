@@ -1,0 +1,62 @@
+---
+import { services } from "../data/site.js";
+import SectionHead from "./SectionHead.astro";
+---
+<section id="services" class="relative border-t border-enzler-border bg-enzler-bg py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHead tag="CAPABILITIES & CORE COMPETENCIES" title="Technology designed around your business." text="From the first structural architecture to a production-ready enterprise solution, we build software engineered specifically around your organizational workflows." />
+    <div class="grid gap-8 md:grid-cols-2">
+      {services.map((s, i) => (
+        <article data-reveal style={`--d:${(i % 2) * 120}ms`} class="glass-surface glass-hover group flex flex-col justify-between rounded-xl p-8">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-semibold uppercase tracking-widest text-enzler-accent">{s.n} / {s.tag}</span>
+              <span class="size-2 rounded-full bg-enzler-border transition-colors group-hover:bg-enzler-accent"></span>
+            </div>
+            <h3 class="text-xl font-bold">{s.title}</h3>
+            <p class="text-sm leading-relaxed text-enzler-muted">{s.text}</p>
+          </div>
+
+          {s.kind === "browser" && (
+            <div class="mt-8 space-y-2 rounded-lg border border-enzler-border bg-enzler-surface p-3 font-mono text-xs text-enzler-muted">
+              <div class="flex items-center gap-1.5 border-b border-enzler-border pb-2">
+                <span class="size-2.5 rounded-full border border-red-500/50 bg-red-500/20"></span>
+                <span class="size-2.5 rounded-full border border-yellow-500/50 bg-yellow-500/20"></span>
+                <span class="size-2.5 rounded-full border border-emerald-500/50 bg-emerald-500/20"></span>
+                <span class="ml-2 text-[10px] text-enzler-muted/70">https://app.enzler.internal</span>
+              </div>
+              <div class="space-y-1.5 rounded bg-enzler-bg/50 p-2">
+                <div class="flex items-center justify-between text-[11px]"><span class="text-enzler-text">React / Next.js Engine</span><span class="text-emerald-400">99.99% Uptime</span></div>
+                <div class="h-1.5 w-full overflow-hidden rounded-full bg-enzler-elevated"><div class="bar h-full w-4/5 bg-enzler-accent" style="transform-origin:left"></div></div>
+              </div>
+            </div>
+          )}
+          {s.kind === "dash" && (
+            <div class="mt-8 grid grid-cols-3 gap-2 rounded-lg border border-enzler-border bg-enzler-surface p-3 text-center font-mono text-xs">
+              <div class="rounded border border-enzler-border/50 bg-enzler-elevated p-2"><span class="block text-[9px] text-enzler-muted">NODES</span><span class="font-bold">128 Active</span></div>
+              <div class="rounded border border-enzler-border/50 bg-enzler-elevated p-2"><span class="block text-[9px] text-enzler-muted">THROUGHPUT</span><span class="font-bold text-enzler-accent">4.2k req/s</span></div>
+              <div class="rounded border border-enzler-border/50 bg-enzler-elevated p-2"><span class="block text-[9px] text-enzler-muted">SYNC</span><span class="font-bold text-emerald-400">Realtime</span></div>
+            </div>
+          )}
+          {s.kind === "flow" && (
+            <div class="mt-8 flex items-center justify-between rounded-lg border border-enzler-border bg-enzler-surface p-3 font-mono text-[10px]">
+              <div class="rounded border border-enzler-border bg-enzler-elevated px-2.5 py-1.5">Webhook</div>
+              <div class="flujo relative h-0.5 w-8 overflow-hidden bg-enzler-accent/30"></div>
+              <div class="rounded border border-enzler-accent/40 bg-enzler-elevated px-2.5 py-1.5 text-enzler-accent">Pipeline Process</div>
+              <div class="flujo relative h-0.5 w-8 overflow-hidden bg-enzler-accent/30"></div>
+              <div class="rounded border border-enzler-border bg-enzler-elevated px-2.5 py-1.5 text-emerald-400">Database</div>
+            </div>
+          )}
+          {s.kind === "stack" && (
+            <div class="mt-8 space-y-2 rounded-lg border border-enzler-border bg-enzler-surface p-3 font-mono text-[11px]">
+              <div class="flex justify-between text-enzler-muted"><span>MODULE_STACK</span><span class="text-enzler-accent">v2.4.0</span></div>
+              <div class="flex flex-wrap gap-1.5">
+                {["Auth Gateway", "Core Engine", "API Layer"].map((m) => <span class="rounded border border-enzler-border bg-enzler-elevated px-2 py-1">{m}</span>)}
+              </div>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

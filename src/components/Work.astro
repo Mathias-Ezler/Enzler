@@ -1,0 +1,57 @@
+---
+import { works } from "../data/site.js";
+import SectionHead from "./SectionHead.astro";
+const bars = [40, 60, 35, 80, 55, 90, 70, 45, 65, 85];
+---
+<section id="work" class="relative border-t border-enzler-border bg-enzler-bg py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHead tag="PROOF OF CAPABILITY" title="Built with purpose." text="Exploratory design and engineering demonstrations showcasing our standards for UI density, real-time performance, and complex data rendering." />
+    <div class="space-y-12">
+      {works.map((w) => (
+        <div data-reveal class="glass-surface grid items-center overflow-hidden rounded-2xl lg:grid-cols-12">
+          <div class="space-y-6 p-8 lg:col-span-5 lg:p-10">
+            <span class="inline-block rounded border border-enzler-border bg-enzler-elevated px-2.5 py-1 font-mono text-[10px] uppercase text-enzler-accent">CONCEPT PROJECT</span>
+            <h3 class="text-2xl font-bold">{w.title}</h3>
+            <p class="text-sm leading-relaxed text-enzler-muted">{w.text}</p>
+            <div class="flex flex-wrap gap-2 font-mono text-xs text-enzler-muted">
+              {w.tags.map((t) => <span class="rounded border border-enzler-border bg-enzler-surface px-2.5 py-1">{t}</span>)}
+            </div>
+          </div>
+
+          <div class="border-t border-enzler-border bg-enzler-elevated p-6 lg:col-span-7 lg:border-l lg:border-t-0 lg:p-8">
+            {w.kind === "erp" && (
+              <div class="space-y-4 rounded-xl border border-enzler-border bg-enzler-bg p-4 font-mono text-xs">
+                <div class="flex items-center justify-between border-b border-enzler-border pb-3">
+                  <div class="flex items-center gap-2"><div class="size-3 rounded-full bg-enzler-accent"></div><span class="font-bold">ERP_CORE_CONSOLE</span></div>
+                  <span class="text-[10px] text-emerald-400">● ALL SYSTEMS OPERATIONAL</span>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="rounded border border-enzler-border bg-enzler-surface p-3"><div class="text-[10px] text-enzler-muted">Active Users</div><div class="text-lg font-bold"><span data-count="14280">14,280</span></div></div>
+                  <div class="rounded border border-enzler-border bg-enzler-surface p-3"><div class="text-[10px] text-enzler-muted">Avg Response</div><div class="text-lg font-bold text-enzler-accent"><span data-count="18" data-suffix="ms">18ms</span></div></div>
+                  <div class="rounded border border-enzler-border bg-enzler-surface p-3"><div class="text-[10px] text-enzler-muted">Security Score</div><div class="text-lg font-bold text-emerald-400"><span data-count="99.8" data-decimals="1" data-suffix="/100">99.8/100</span></div></div>
+                </div>
+                <div class="space-y-2 rounded border border-enzler-border bg-enzler-surface p-3">
+                  <div class="text-[10px] uppercase text-enzler-muted">Global Event Ledger</div>
+                  <div class="space-y-1 text-[11px] text-enzler-muted">
+                    <div class="flex justify-between"><span class="text-enzler-text">[18:42:01] Token_Renewed</span><span>User ID #8921</span></div>
+                    <div class="flex justify-between"><span class="text-enzler-text">[18:41:58] Ledger_Batch_Commit</span><span class="text-enzler-accent">Success (2ms)</span></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {w.kind === "telemetry" && (
+              <div class="space-y-4 rounded-xl border border-enzler-border bg-enzler-bg p-4 font-mono text-xs">
+                <div class="flex justify-between text-[11px] text-enzler-muted"><span>STREAM: telemetry.cluster.us-east</span><span class="text-enzler-accent">Live Telemetry</span></div>
+                <div class="flex h-32 w-full items-end gap-1.5 rounded border border-enzler-border bg-enzler-surface p-2">
+                  {bars.map((h, i) => (
+                    <div class:list={["bar w-1/12 rounded-t bg-enzler-accent", i === bars.length - 1 && "animate-pulse"]} style={`height:${h}%;opacity:${0.4 + h / 150};--d:${i * 70}ms`}></div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

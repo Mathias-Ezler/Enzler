@@ -1,0 +1,31 @@
+---
+import { nav } from "../data/site.js";
+---
+<footer class="border-t border-enzler-border bg-enzler-surface py-16 text-xs text-enzler-muted">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-12 border-b border-enzler-border pb-12 md:grid-cols-12">
+      <div class="space-y-4 md:col-span-5">
+        <div class="flex items-center gap-3">
+          <div class="flex size-6 items-center justify-center rounded border border-enzler-border bg-enzler-elevated font-mono text-xs font-bold text-enzler-accent">E</div>
+          <span class="font-mono text-base font-bold tracking-wider text-enzler-text">ENZLER</span>
+        </div>
+        <p class="max-w-sm leading-relaxed">Software engineering and digital solutions. Building custom enterprise applications, web platforms, and automated system architecture.</p>
+      </div>
+      <div class="space-y-3 md:col-span-3">
+        <div class="font-mono text-xs font-semibold uppercase tracking-wider text-enzler-text">Navigation</div>
+        <ul class="space-y-2">{nav.map((l) => <li><a href={l.href} class="transition-colors hover:text-enzler-text">{l.label}</a></li>)}</ul>
+      </div>
+      <div class="space-y-3 md:col-span-4">
+        <div class="font-mono text-xs font-semibold uppercase tracking-wider text-enzler-text">Engineering Office</div>
+        <p>Consultation & Architecture Enquiries</p>
+        <div class="inline-flex items-center gap-2 rounded border border-enzler-border bg-enzler-elevated px-3 py-1.5 font-mono text-[11px] text-emerald-400">
+          <span class="size-1.5 animate-pulse rounded-full bg-emerald-400"></span>Accepting new Q4 engineering engagements
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col items-center justify-between gap-4 pt-8 font-mono text-[11px] sm:flex-row">
+      <div>© {new Date().getFullYear()} ENZLER. All rights reserved. Software Engineering Division.</div>
+      <div>ENGINEERED WITH PRECISION</div>
+    </div>
+  </div>
+</footer>

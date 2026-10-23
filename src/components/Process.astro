@@ -1,0 +1,21 @@
+---
+import { steps } from "../data/site.js";
+import SectionHead from "./SectionHead.astro";
+---
+<section id="approach" class="relative border-t border-enzler-border bg-enzler-surface py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHead tag="ENGINEERING METHODOLOGY" title="From complex problems to clear solutions." text="Our disciplined engineering process ensures clarity, technical precision, and on-time project execution at every milestone." />
+    <div class="grid gap-6 md:grid-cols-4">
+      {steps.map((s, i) => (
+        <div data-reveal style={`--d:${i * 120}ms`} class="glass-hover space-y-4 rounded-xl border border-enzler-border bg-enzler-bg p-6 hover:border-enzler-accent">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-2xl font-bold text-enzler-accent">{s.n}</span>
+            <span class="rounded border border-enzler-border bg-enzler-elevated px-2 py-0.5 font-mono text-[10px] text-enzler-muted">PHASE_{s.n}</span>
+          </div>
+          <h3 class="text-lg font-bold">{s.title}</h3>
+          <p class="text-xs leading-relaxed text-enzler-muted">{s.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

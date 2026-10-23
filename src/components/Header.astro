@@ -1,0 +1,24 @@
+---
+import { nav } from "../data/site.js";
+---
+<header id="header" class="glass-surface fixed inset-x-0 top-0 z-40 h-20 border-b border-enzler-border/60 transition-[height] duration-300">
+  <div class="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <a href="#" class="group flex items-center gap-3">
+      <div class="flex size-8 items-center justify-center rounded-lg border border-enzler-border bg-enzler-elevated transition-colors duration-300 group-hover:border-enzler-accent">
+        <svg class="size-4 text-enzler-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-mono text-lg font-bold tracking-wider">ENZLER</span>
+        <span class="-mt-1 font-mono text-[9px] uppercase tracking-widest text-enzler-muted">Software Engineering</span>
+      </div>
+    </a>
+    <nav class="hidden items-center space-x-8 md:flex">
+      {nav.map((l) => <a href={l.href} class="text-sm font-medium text-enzler-muted transition-colors hover:text-enzler-text">{l.label}</a>)}
+    </nav>
+    <button data-open-modal class="group inline-flex items-center rounded-lg border border-enzler-border bg-enzler-elevated px-5 py-2.5 text-xs font-semibold uppercase tracking-wide shadow-sm transition-all duration-300 hover:border-enzler-accent hover:text-white">
+      Start a project
+      <svg class="ml-1.5 size-3.5 text-enzler-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+    </button>
+  </div>
+  <div id="progress" class="absolute inset-x-0 bottom-0 h-px origin-left bg-enzler-accent" style="transform:scaleX(0)"></div>
+</header>
